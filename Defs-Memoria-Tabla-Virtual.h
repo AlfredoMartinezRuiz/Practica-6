@@ -8,7 +8,9 @@
 # define ram 3
 //Declaración de la memoria virtual
 struct mem_vir{ // Representa cada página virtual (4KB)
-    int n_pagina;
+	int n_pagina;
+	int pagina_binario[4];
+	int marco_pagina;
     struct mem_vir *ant;
     struct mem_vir *sig;
 
@@ -29,6 +31,8 @@ typedef struct tabla TABLA;
 //Declaración de la memoria física
 struct memoria{ // Representa cada marco de página (4KB)
     int marco_pagina;
+    int marco_binario[3];
+    int n_pagina;
     struct memoria *ant;
     struct memoria *sig;
 

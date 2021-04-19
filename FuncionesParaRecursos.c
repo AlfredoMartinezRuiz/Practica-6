@@ -4,6 +4,7 @@
 # include "Defs-Memoria-Tabla-Virtual.h"
 
 void construccion(int nodo, int type){
+//	printf("Este es el nodo:  %d\n", nodo);
     switch(type){
     	case 1: ; // Si es una memoria virtual
     		MEM_VIR *nuevo_mv = (MEM_VIR *) malloc(sizeof(MEM_VIR));
@@ -11,6 +12,17 @@ void construccion(int nodo, int type){
 				nuevo_mv -> ant = mv;
 		        nuevo_mv -> sig = NULL;
 		        nuevo_mv -> n_pagina = nodo;
+		        //Paso el nodo a binario
+		      	int n = nodo;
+				int i = 0;
+	
+				while(i<4){
+					nuevo_mv -> pagina_binario[i] = n%2;
+					n = n/2;
+					i++;
+				} //Termino de pasar el nodo a binario
+		      	
+		        nuevo_mv -> marco_pagina = 0;
 		        if(mv != NULL) mv -> sig = nuevo_mv;
 		        mv = nuevo_mv;
 				construccion(nodo+1, type);
@@ -69,13 +81,26 @@ void inicio(int type){
 }
 
 void mostrar(int type){
-		printf("\nLista completa: \n");
+	//	printf("\nLista completa: \n");
 		switch(type){
 			case 1: ; // Si es una memoria virtual
 				MEM_VIR *aux_mv = (MEM_VIR *) malloc(sizeof(MEM_VIR));
 				aux_mv = mv;
+				printf("Tabla de paginas:\n");
+				printf("Indice binario  |Indice decimal | Marco de pagina\n");
 				while(aux_mv != NULL){
-		            printf("%d  ", aux_mv -> n_pagina); //imprime el valor
+					
+					//Imprimo el binario_pagina[]
+		            int i = 3;
+		            while(i >= 0){
+					printf("%i", aux_mv->pagina_binario[i]);
+						i--;
+					}
+					//imprime el valor
+		            printf("| %d |", aux_mv -> n_pagina); 
+					//Imprimo el marco de pagina en donde se encuentra la pagina
+					printf("%d", aux_mv->marco_pag);
+					printf("\n");
 		            aux_mv = aux_mv -> sig;
 		        }
 				break;

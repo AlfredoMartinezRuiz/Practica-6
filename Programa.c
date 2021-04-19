@@ -17,6 +17,6 @@ int main(void){
 	 
 	
 	mostrar(memoria_virtual);
-	mostrar(tabla_con);
-	mostrar(ram);
+//	mostrar(tabla_con);
+//	mostrar(ram);
 }
