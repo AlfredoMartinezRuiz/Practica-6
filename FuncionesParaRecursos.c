@@ -99,7 +99,7 @@ void mostrar(int type){
 					//imprime el valor
 		            printf("| %d |", aux_mv -> n_pagina); 
 					//Imprimo el marco de pagina en donde se encuentra la pagina
-					printf("%d", aux_mv->marco_pag);
+					printf("%d", aux_mv->marco_pagina);
 					printf("\n");
 		            aux_mv = aux_mv -> sig;
 		        }
