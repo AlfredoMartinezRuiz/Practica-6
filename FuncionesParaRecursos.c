@@ -286,8 +286,8 @@ void paginar(int n_pagina){
 		int aux[12];
 		printf(" Direcciones vituales | Direcciones en RAM\n");
 		printf("----------------------------------------------\n");
-		for(int i=0; i<4096; i++){
-			dec_bin(i, aux, 12);
+		for(int i=0; i<4096; i++){ // Generación de todos los números
+			dec_bin(i, aux, 12); // Conversión a binario
 			
 			// Seccion de direcciones virtuales
 			printf(" ");
