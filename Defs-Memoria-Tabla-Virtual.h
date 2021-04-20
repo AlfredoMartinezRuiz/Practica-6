@@ -8,9 +8,9 @@
 # define ram 3
 //Declaración de la memoria virtual
 struct mem_vir{ // Representa cada página virtual (4KB)
-	int n_pagina;
-	int pagina_binario[4];
-	int marco_pagina;
+	int pagina_binario[4]; // indice en binario
+	int pagina_decimal;
+	int marco_pagina; // Qué página es en RAM
     struct mem_vir *ant;
     struct mem_vir *sig;
 
@@ -30,9 +30,10 @@ typedef struct tabla TABLA;
 
 //Declaración de la memoria física
 struct memoria{ // Representa cada marco de página (4KB)
-    int marco_pagina;
-    int marco_binario[3];
-    int n_pagina;
+    int orden; // Identifica el orden como fue ocupada, comienza en 0 y termina en 7
+    int marco_binario[3]; // Indice en binario
+    int marco_decimal;
+    int marco_pagina; // Qué página es en virtual
     struct memoria *ant;
     struct memoria *sig;
 
@@ -50,10 +51,11 @@ void construccion(int nodo, int type); /* Construye el número de nodos para cada
 del tamaño total y el tamaño por nodo, en este caso el tamaño del nodo son 4KB, el nodo indica el índice*/
 void inicio(int type); // Reinicia los frentes al primer nodo
 void mostrar(int type); // Muestra la lista
-//Funcion para crear un numero aleatorio
-int num_random();
-//Funcion para hacer la paginacion inicial usando numeros aleatorios
-void Paginacion_Inicial();
-//Funcion para saber si un numero aleatorio ya ha sido usado
-int Num_usado(int num);
-# endif // COLITA
+int num_random(); // Funcion para crear un numero aleatorio
+void invertir_arreglo(int *ptr_arreglo, int tam); // Funcion para invertir un arreglo (de bits)
+void dec_bin(int num, int *ptr_arreglo, int tam); // Funcion paara convertir numero decimal a binario
+int bin_dec(int *ptr_arreglo, int tam); // Funcion para convertir de un numero binario a decimal
+void paginar(int n_pagina); // Funcion para hacer la paginacion inicial usando numeros aleatorios
+int solicitar_espacio(); // Funcion para buscar algún espacio libre en la memoria, devuelve el índice en decimal
+
+# endif
