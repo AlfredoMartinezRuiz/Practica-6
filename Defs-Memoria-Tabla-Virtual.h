@@ -20,7 +20,7 @@ typedef struct mem_vir MEM_VIR;
 //Declaración de la tabla
 struct tabla{ // Representa cada celda
     int n_pagina;
-    unsigned bits;
+    int marco_binario[3];
 	int bit_pres_aus;
     struct tabla *ant;
     struct tabla *sig;
@@ -50,4 +50,10 @@ void construccion(int nodo, int type); /* Construye el número de nodos para cada
 del tamaño total y el tamaño por nodo, en este caso el tamaño del nodo son 4KB, el nodo indica el índice*/
 void inicio(int type); // Reinicia los frentes al primer nodo
 void mostrar(int type); // Muestra la lista
+//Funcion para crear un numero aleatorio
+int num_random();
+//Funcion para hacer la paginacion inicial usando numeros aleatorios
+void Paginacion_Inicial();
+//Funcion para saber si un numero aleatorio ya ha sido usado
+int Num_usado(int num);
 # endif // COLITA
