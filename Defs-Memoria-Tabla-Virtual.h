@@ -51,11 +51,14 @@ void construccion(int nodo, int type); /* Construye el número de nodos para cada
 del tamaño total y el tamaño por nodo, en este caso el tamaño del nodo son 4KB, el nodo indica el índice*/
 void inicio(int type); // Reinicia los frentes al primer nodo
 void mostrar(int type); // Muestra la lista
-int num_random(); // Funcion para crear un numero aleatorio
+int num_random(); // Funcion para crear un numero aleatorio entre 0 y 7
 void invertir_arreglo(int *ptr_arreglo, int tam); // Funcion para invertir un arreglo (de bits)
 void dec_bin(int num, int *ptr_arreglo, int tam); // Funcion paara convertir numero decimal a binario
 int bin_dec(int *ptr_arreglo, int tam); // Funcion para convertir de un numero binario a decimal
 void paginar(int n_pagina); // Funcion para hacer la paginacion inicial usando numeros aleatorios
 int solicitar_espacio(); // Funcion para buscar algún espacio libre en la memoria, devuelve el índice en decimal
+int num_random2(); // Funcion para crear un numero aleatorio entre 0 y 15
+void fallo_pagina(int n_pagina);
+void diminuir_orden(int *ptr_arreglo);
 
 # endif

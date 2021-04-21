@@ -6,7 +6,17 @@
 
 int n_orden = 0; // Numero para identificar el orden como fueron paginados los marcos
 
-// Funcion para crear un numero aleatorio
+
+
+void diminuir_orden(int *ptr_arreglo){
+	int i;
+	for(i = 0; i < 8; i++){
+		if(ptr_arreglo != 0)
+			ptr_arreglo--;	
+	} 
+}
+
+// Funcion para crear un numero aleatorio entre 0 y 7
 int num_random(){
 	int x;
 	srand(time(NULL));
@@ -14,16 +24,25 @@ int num_random(){
 	return x;
 }
 
+
+// Funcion para crear un numero aleatorio entre 0 y 15
+int num_random2(){
+	int x;
+	srand(time(NULL));
+	x = rand()%16;	//Vamos a generar un numero entre 0 y 15
+	return x;
+}
+
 // Funcion paara convertir numero decimal a binario
 void dec_bin(int n, int *ptr_arreglo, int tam){
 	int n_digitos = tam; // Obtenemos el número de digitos
 	int aux[tam];
-	
-	for(int i=0; i<tam; i++){ // Converitmos a binario
+	int i;
+	for( i=0; i<tam; i++){ // Converitmos a binario
 		aux[i] = n%2;
 		n = n/2;		
 	}
-	for(int i=tam-1; i>=0; i--){ // Invertimos los dígitos
+	for( i=tam-1; i>=0; i--){ // Invertimos los dígitos
 		*ptr_arreglo = aux[i];
 		ptr_arreglo++;
 	}
@@ -32,10 +51,11 @@ void dec_bin(int n, int *ptr_arreglo, int tam){
 // Funcion para convertir de un numero binario a decimal
 int bin_dec(int *ptr_arreglo, int tam){
 	int i = 1, decimal = 0, n_digitos = tam; // Obtenemos el tamaño en bytes y dividimos en 2 para obtener n_digitos
-	for(int k = 1; k < n_digitos; k++) // Mandamos al final al puntero porque es binario 
+	int k;
+	for(k = 1; k < n_digitos; k++) // Mandamos al final al puntero porque es binario 
 		ptr_arreglo++;	
-	
-	for(int o = 0; o < n_digitos; o++){		
+	int o;
+	for(o = 0; o < n_digitos; o++){		
 		if(*ptr_arreglo == 1)
 			decimal = decimal + i;			
 		ptr_arreglo--;		
@@ -133,7 +153,8 @@ void mostrar(int type){
 				while(aux_mv != NULL){
 					
 					// Imprimo el número de página en binario
-		            for(int i=0; i<4; i++)
+					int i;
+		            for(i=0; i<4; i++)
 		            	printf("%i", aux_mv -> pagina_binario[i]);
 		            	
 					// Imprimo el número de página en decimal
@@ -165,7 +186,8 @@ void mostrar(int type){
 		            // Imprimo el marco de pagina
 		            if(aux_tb -> n_pagina < 10) printf("                | ");
 		            else printf("               | ");
-					for(int i=0; i<3; i++){
+		            int i;
+					for(i=0; i<3; i++){
 						printf("%d", aux_tb->marco_binario[i]);
 					}
 		            	
@@ -188,7 +210,8 @@ void mostrar(int type){
 				while(aux_mm != NULL){
 					
 					//Imprimo el marco_binario[]
-					for(int i=0; i<3; i++)
+					int i;
+					for(i=0; i<3; i++)
 		            	printf("%i", aux_mm -> marco_binario[i]);
 		           
 		           	// Imprimo el número de página en decimal
@@ -217,8 +240,8 @@ int solicitar_espacio(){
 	int mem_llena = 1;
 	MEMORIA *aux_mm = (MEMORIA *) malloc(sizeof(MEMORIA));
 	aux_mm = mm;
-	
-	for(int i=0; i<8; i++){ // Algoritmo para ver si están vacíos u ocupados los espacios en memoria
+	int i;
+	for(i=0; i<8; i++){ // Algoritmo para ver si están vacíos u ocupados los espacios en memoria
 		if(aux_mm -> marco_pagina == -1)
 			esp_usado[i] = 0;
 		else
@@ -226,8 +249,7 @@ int solicitar_espacio(){
 		aux_mm = aux_mm -> sig;	
 	}
 	free(aux_mm);
-	
-	for(int i=0; i<8; i++){ // Comprobamos que no toda la memoria esté llena
+	for(i=0; i<8; i++){ // Comprobamos que no toda la memoria esté llena
 		if(esp_usado[i] == 0)
 			mem_llena = 0;
 		//printf("%d", esp_usado[i]);	
@@ -249,8 +271,8 @@ void paginar(int n_pagina){
 	int indice_espacio = solicitar_espacio();
 	MEM_VIR *aux_mv = (MEM_VIR *) malloc(sizeof(MEM_VIR)); // Generamos el apuntador para manejar la página
 	aux_mv = mv;
-	
-	for(int i=0; i<16; i++){ // Buscamos la pagina (MV) con base a su numero 
+	int i;
+	for(i=0; i<16; i++){ // Buscamos la pagina (MV) con base a su numero 
 		if(aux_mv -> pagina_decimal == n_pagina)
 			break;
 		aux_mv = aux_mv -> sig;		
@@ -259,22 +281,23 @@ void paginar(int n_pagina){
 	if(indice_espacio > -1){ // Si hay espacio
 		MEMORIA *aux_mm = (MEMORIA *) malloc(sizeof(MEMORIA)); // Generamos el apuntador para manejar el marco de página
 		aux_mm = mm;
-		
-		for(int i=0; i<8; i++){ // Buscamos el marco de pagina (MM) con base a su numero 
+		int i;
+		for(i=0; i<8; i++){ // Buscamos el marco de pagina (MM) con base a su numero 
 			if(aux_mm -> marco_decimal == indice_espacio)
 				break;
 			aux_mm = aux_mm -> sig;		
 		}
 		aux_mm -> marco_pagina = n_pagina; // Asignamos el numero de pagina a la memoria
 		aux_mv -> marco_pagina = indice_espacio; // Asignamos el marco de pagina a la memoria virtual
-		aux_mm -> orden = n_orden; // Asignamos el orden como legó para usar FIFO
+		aux_mm -> orden = n_orden; // Asignamos el orden como llegó para usar FIFO
 		n_orden++;
+		printf("Es es el No. orden %d\n", aux_mm->orden);
 		
 		// Manejo de la tabla de conversiones
 		TABLA *aux_tb = (TABLA *) malloc(sizeof(TABLA)); // Generamos el apuntador para manejar el marco de página
 		aux_tb = tb;
 		
-		for(int i=0; i<16; i++){ // Buscamos el índice de pagina en la tabla con base al numero de pagina
+		for(i=0; i<16; i++){ // Buscamos el índice de pagina en la tabla con base al numero de pagina
 			if(aux_tb -> n_pagina == n_pagina)
 				break;
 			aux_tb = aux_tb -> sig;		
@@ -283,61 +306,189 @@ void paginar(int n_pagina){
 		dec_bin(indice_espacio, aux_tb -> marco_binario, 3); // Convertimos el indice de espacio a binario y lo almacenamos
 		
 		// Impresion de las conversiones
-		int aux[12];
+	/*	int aux[12];
 		printf(" Direcciones vituales | Direcciones en RAM\n");
 		printf("----------------------------------------------\n");
-		for(int i=0; i<4096; i++){ // Generación de todos los números
+		
+		for(i=0; i<4096; i++){ // Generación de todos los números
 			dec_bin(i, aux, 12); // Conversión a binario
 			
 			// Seccion de direcciones virtuales
 			printf(" ");
-			for(int i=0; i<4; i++){
+			int i;
+			for(i=0; i<4; i++){
 				printf("%d", aux_mv -> pagina_binario[i]); // Imprime primeros 4 bits (de MV)
 			}
 			printf(" ");
-			
-			for(int i=0; i<4; i++){ // Los siguientes 4 bits generados del for
+	
+			for(i=0; i<4; i++){ // Los siguientes 4 bits generados del for
 				printf("%d", aux[i]);
 			}
 			printf(" ");
 			
-			for(int i=4; i<8; i++){ // Los siguientes 4 bits generados del for
+			for(i=4; i<8; i++){ // Los siguientes 4 bits generados del for
 				printf("%d", aux[i]);
 			}
 			printf(" ");
 			
-			for(int i=8; i<12; i++){ // Los siguientes 4 bits generados del for
+			for(i=8; i<12; i++){ // Los siguientes 4 bits generados del for
 				printf("%d", aux[i]);
 			}
 			printf("  | ");
 			
 			// Seccion de direcciones en RAM
 			printf(" ");
-			for(int i=0; i<3; i++){
+			for(i=0; i<3; i++){
 				printf("%d", aux_tb -> marco_binario[i]); // Imprime primeros 3 bits (de MM)
 			}
 			printf("%d", aux_tb -> bit_pres_aus); // Imprime el siguiente bit (de MM, bit ausente/presente)
 			printf(" ");
 			
-			for(int i=0; i<4; i++){ // Los siguientes 4 bits generados del for
+			for(i=0; i<4; i++){ // Los siguientes 4 bits generados del for
 				printf("%d", aux[i]);
 			}
 			printf(" ");
 			
-			for(int i=4; i<8; i++){ // Los siguientes 4 bits generados del for
+			for(i=4; i<8; i++){ // Los siguientes 4 bits generados del for
 				printf("%d", aux[i]);
 			}
 			printf(" ");
 			
-			for(int i=8; i<12; i++){ // Los siguientes 4 bits generados del for
+			for(i=8; i<12; i++){ // Los siguientes 4 bits generados del for
 				printf("%d", aux[i]);
 			}
 			printf("  | \n");
 		}
 		printf("\n");		
-		
+		*/
 	}
 	else{ // Si no hay espacio
+		printf("\nLa RAM esta llena\n\n");
 		/* Algoritmo de fallo de página */
 	}
+}
+
+
+
+void fallo_pagina(int n_pagina){
+	//Primero determinamos la pagina que debe entrar
+//	printf("El numero aleatorio de fallo de pagina es %d\n", n_pagina);
+	TABLA *aux_tb = (TABLA *) malloc(sizeof(TABLA)); // Generamos el apuntador para manejar la tabla 
+		aux_tb = tb;
+	int i;
+	for(i=0; i<16; i++){ // Buscamos el índice de pagina en la tabla con base al numero de pagina
+			if(aux_tb -> n_pagina == n_pagina)
+				break;
+			aux_tb = aux_tb -> sig;		
+		}
+		
+		
+	if(aux_tb->bit_pres_aus == 0){ //Si la pagina no esta en la RAM, procedemos a mover
+//	printf("La pagina que debe entrar es: %d\n", aux_tb->n_pagina);
+		
+		//Buscar la pagina en la tabla de paginas que va a entrar a la RAM
+		MEM_VIR *aux_mv = (MEM_VIR *) malloc(sizeof(MEM_VIR)); // Generamos el apuntador para manejar la página
+		aux_mv = mv;
+		int i;
+		for(i=0; i<16; i++){ // Buscamos la pagina (MV) con base a la pagina que determinamos de la tabla de conversiones
+		if(aux_mv -> pagina_decimal == n_pagina)
+			break;
+		aux_mv = aux_mv -> sig;
+		}
+		int entra_pag = aux_mv->pagina_decimal; //Esto nos servira para actualizar datos en la tabla de conversiones
+		printf("Pagina a entrar en RAM: %d\n", aux_mv->pagina_decimal); //Pagina encontrada en la tabla de paginas
+		
+		
+		//Ahora, determinar la pagina que debe salir del marco de pagina mediante FIFO
+		MEMORIA *aux_mm = (MEMORIA *) malloc(sizeof(MEMORIA)); // Generamos el apuntador para manejar el marco de pagina a salir
+		aux_mm = mm;
+	//	int n_pagina2 = 0; //El índice más pequeño
+		//Vamos a buscar el marco de pagina que tenga int orden = 0
+		for(i=0;i<8;i++){
+			if(aux_mm->orden == 0)//Si el numero orden del marco de pagina es 0, este es el que sacaremos
+				break;	
+		//	num_menor++;
+		//	aux_mm->orden--;//Le resto uno al que no tiene numero orden igual a 0
+			aux_mm = aux_mm->sig;
+				}
+				
+			free(mm);
+		//Le resto a orden -1 a todos los marcos de pagina menos al que es el menor
+		MEMORIA *aux_mm_restar = (MEMORIA *) malloc(sizeof(MEMORIA)); // Generamos el apuntador para manejar el marco de pagina a salir
+		aux_mm_restar = mm;
+		for(i=0;i<8;i++){
+			if(aux_mm_restar->orden != 0)//Si el numero orden del marco de pagina es distinto de 0, le restamos 1
+			aux_mm_restar->orden = aux_mm_restar->orden-1;
+				break;
+			aux_mm_restar = aux_mm_restar->sig;
+				}
+		
+		int sale_pag = aux_mm->marco_pagina;
+		printf("Pagina a salir de RAM: %d\n", aux_mm->marco_pagina); //Pagina encontrada en la tabla de marcos de pagina
+		
+		//Ahora, hacer el cambio (paginación)
+		aux_mm->marco_pagina = aux_mv->pagina_decimal;
+		aux_mv->marco_pagina = aux_mm->marco_decimal;
+		aux_mm->orden = 7; //Se convierte en el ultimo en entrar
+		
+		
+		//Hallar la pagina en la tabla de conversiones que ya no esta en la tabla de marcos de pagina
+		TABLA *aux_tb2 = (TABLA *) malloc(sizeof(TABLA)); // Generamos el apuntador para manejar la tabla 
+		aux_tb2 = tb; //Vuelvo al inicio
+		for(i=0; i<16; i++){ // Buscamos el índice de pagina en la tabla con base al numero de pagina de la tabla de marcos de pagina
+			if(aux_tb2->n_pagina == sale_pag)
+				break;
+			aux_tb2 = aux_tb2 -> sig;		
+		}
+		
+		//Hallar la pagina en la tabla de conversiones que entra para actualizar sus datos
+		TABLA *aux_tb3 = (TABLA *) malloc(sizeof(TABLA)); // Generamos el apuntador para manejar la tabla 
+		aux_tb3 = tb; //Vuelvo al inicio
+		for(i=0; i<16; i++){ // Buscamos el índice de pagina en la tabla con base al numero de pagina de la tabla de marcos de pagina
+			if(aux_tb3->n_pagina == entra_pag)
+				break;
+			aux_tb3 = aux_tb3 -> sig;		
+		}
+		
+		//A la pagina que entra le pasamos el binario de la que sale
+		for(i=0;i<3;i++){
+		aux_tb3->marco_binario[i] = aux_tb2->marco_binario[i];
+		}
+		aux_tb3->bit_pres_aus = 1;
+		
+		
+		//A la pagina que ya no esta lo actualizamos
+		for(i=0;i<3;i++){
+		aux_tb2->marco_binario[i] = 0;
+		}
+		aux_tb2->bit_pres_aus = 0;
+		
+		
+		//Hallar la pagina en la tabla de paginas que ya no esta en la tabla de marcos de pagina
+		aux_mv = mv; //Vuelvo al inicio 
+		for(i=0; i<16; i++){ // Buscamos la pagina (MV) con base a la pagina que determinamos de la tabla de conversiones
+		if(aux_mv -> pagina_decimal == sale_pag)
+			break;
+		aux_mv = aux_mv -> sig;
+			}
+		aux_mv->marco_pagina = -1;
+		
+		}
+		
+		else{			//Si la pagina si esta en la RAM volvemos a ejecutar la funcion
+		printf("La pagina esta en la RAM\n");
+		printf("Intentelo de nuevo por favor\n");
+	//	printf("Se ha vuelto a hacer la funcion\n");
+	//	int n_pagina_nueva = num_random2();
+//		int n_pagina_nueva = n_pagina;
+//		if(n_pagina_nueva == 15){
+//			n_pagina_nueva = 0;
+	//	}
+	//	else{
+			
+	//	}
+	//	fallo_pagina(n_pagina_nueva);
+		}
+	
+	
 }
