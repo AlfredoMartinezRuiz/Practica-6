@@ -36,7 +36,7 @@ int main(void){
 		}
 		else if(opcion != -1){
 			paginar(opcion);
-		}		
+		}	
 		
 	}while(opcion != -1);
 }
