@@ -16,12 +16,9 @@ int main(void){
 	inicio(ram);
 	inicio(tabla_con); 
 	
-	//system("pause");
-	//system("cls");
 	int opcion = -1;
 	printf("Estado inicial: \n\n");
 	do{
-		//system("cls");
 		// Muestra estado inicial de las memorias
 		mostrar(memoria_virtual);
 		mostrar(ram);
