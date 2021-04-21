@@ -25,8 +25,12 @@ int main(void){
 		mostrar(memoria_virtual);
 		mostrar(ram);
 		mostrar(tabla_con);
+		printf("Bienvenido, digite lo que desea hacer:\n");
+		printf("Si quiere hacer paginacion manual, digite la pagina que desea mover a la RAM (0-15)\n");
+		printf("Si quiere hacer fallo de pagina, digite -2\n");
+		printf("Si quiere salir del programa, digite -1\n");;
+		printf("Opcion: ");
 		
-		printf("\nQue pagina desea mover a la memoria RAM? (0-15, -2 para hacer fallo de pagina, -1 para salir) ");
 		scanf("%d", &opcion);
 		printf("\n");
 		if(opcion == -2){

@@ -59,6 +59,5 @@ void paginar(int n_pagina); // Funcion para hacer la paginacion inicial usando n
 int solicitar_espacio(); // Funcion para buscar algún espacio libre en la memoria, devuelve el índice en decimal
 int num_random2(); // Funcion para crear un numero aleatorio entre 0 y 15
 void fallo_pagina(int n_pagina);
-void diminuir_orden(int *ptr_arreglo);
 
 # endif
