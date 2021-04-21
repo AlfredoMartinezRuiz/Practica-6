@@ -26,10 +26,15 @@ int main(void){
 		mostrar(ram);
 		mostrar(tabla_con);
 		
-		printf("\nQue pagina desea mover a la memoria RAM? (0-15, -1 para salir) ");
+		printf("\nQue pagina desea mover a la memoria RAM? (0-15, -2 para hacer fallo de pagina, -1 para salir) ");
 		scanf("%d", &opcion);
 		printf("\n");
-		if(opcion != -1){
+		if(opcion == -2){
+		//	printf("Aqui va a ser el fallo de pagina\n");
+			int n_pagina = num_random2();
+			fallo_pagina(n_pagina);
+		}
+		else if(opcion != -1){
 			paginar(opcion);
 		}		
 		
