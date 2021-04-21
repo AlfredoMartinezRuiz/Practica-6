@@ -38,21 +38,6 @@ void dec_bin(int n, int *ptr_arreglo, int tam){
 	}
 }
 
-// Funcion para convertir de un numero binario a decimal
-int bin_dec(int *ptr_arreglo, int tam){
-	int i = 1, decimal = 0, n_digitos = tam; // Obtenemos el tamaño en bytes y dividimos en 2 para obtener n_digitos
-	for(int k = 1; k < n_digitos; k++) // Mandamos al final al puntero porque es binario 
-		ptr_arreglo++;	
-	
-	for(int o = 0; o < n_digitos; o++){		
-		if(*ptr_arreglo == 1)
-			decimal = decimal + i;			
-		ptr_arreglo--;		
-		i*=2;		
-	}
-	return decimal;
-}
-
 /* Construye el número de nodos para cada lista, en la memoria virtual y tabla son 16 y en la ram son 8. Esto depende 
 del tamaño total y el tamaño por nodo, en este caso el tamaño del nodo son 4KB, el nodo indica el índice*/
 void construccion(int nodo, int type){

@@ -54,7 +54,6 @@ void mostrar(int type); // Muestra la lista
 int num_random(); // Funcion para crear un numero aleatorio
 void invertir_arreglo(int *ptr_arreglo, int tam); // Funcion para invertir un arreglo (de bits)
 void dec_bin(int num, int *ptr_arreglo, int tam); // Funcion paara convertir numero decimal a binario
-int bin_dec(int *ptr_arreglo, int tam); // Funcion para convertir de un numero binario a decimal
 void paginar(int n_pagina); // Funcion para hacer la paginacion inicial usando numeros aleatorios
 int solicitar_espacio(); // Funcion para buscar algún espacio libre en la memoria, devuelve el índice en decimal
 int num_random_extendido(); // Funcion para crear un numero aleatorio entre 0 y 15
