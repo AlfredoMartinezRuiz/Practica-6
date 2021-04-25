@@ -1,5 +1,6 @@
 /* Programa principal que hará uso de las funciones para manipular la información entre la memoria
 virtual y la memoria RAM */
+
 #include <stdio.h>
 #include <stdlib.h>
 # include "Defs-Memoria-Tabla-Virtual.h"
@@ -26,7 +27,7 @@ int main(void){
 		printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		printf("\nBienvenido, digite lo que desea hacer:\n\n");
 		printf("Si quiere hacer paginacion manual, digite la pagina que desea mover a la RAM (0-15)\n");
-		printf("Si quiere pagina alguna pagina aleatoriamente, digite -2\n");
+		printf("Si quiere paginar alguna pagina aleatoriamente, digite -2\n");
 		printf("Si quiere salir del programa, digite -1\n");;
 		printf("Opcion: ");		
 		scanf("%d", &opcion);		

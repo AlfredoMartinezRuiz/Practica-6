@@ -41,14 +41,14 @@ void dec_bin(int n, int *ptr_arreglo, int tam){
 /* Construye el número de nodos para cada lista, en la memoria virtual y tabla son 16 y en la ram son 8. Esto depende 
 del tamaño total y el tamaño por nodo, en este caso el tamaño del nodo son 4KB, el nodo indica el índice*/
 void construccion(int nodo, int type){
-//	printf("Este es el nodo:  %d\n", nodo);
     switch(type){
     	case 1: ; // Si es una memoria virtual
     		MEM_VIR *nuevo_mv = (MEM_VIR *) malloc(sizeof(MEM_VIR));
-			if(nodo < 16){				
+			if(nodo < 16){		
 				nuevo_mv -> ant = mv;
 		        nuevo_mv -> sig = NULL;
-		        dec_bin(nodo, nuevo_mv -> pagina_binario, 4); // Convertirmos el nodo a binario y lo almacenamos en pagina_binario
+		        dec_bin(nodo, nuevo_mv -> pagina_binario, 4); /* Convertirmos el nodo
+				 a binario y lo almacenamos en pagina_binario */
 		        nuevo_mv -> pagina_decimal = nodo;
 				nuevo_mv -> marco_pagina = -1; // Significa que no hay ninguno en RAM 
 				
@@ -59,7 +59,7 @@ void construccion(int nodo, int type){
     		break;
     		
     	case 2: ; // Si es la tabla
-    		TABLA *nuevo_tb = (TABLA *) malloc(sizeof(TABLA));
+    		TABLA *nuevo_tb = (TABLA *) malloc(sizeof(TABLA));	
 			if(nodo < 16){
 				nuevo_tb -> ant = tb;
 		        nuevo_tb -> sig = NULL;
@@ -79,7 +79,8 @@ void construccion(int nodo, int type){
 				nuevo_mm -> ant = mm;
 		        nuevo_mm -> sig = NULL;
 		        nuevo_mm -> orden = nodo;
-		        dec_bin(nodo, nuevo_mm -> marco_binario, 3); // Convertirmos el nodo a binario y lo almacenamos en marco_binario
+		        dec_bin(nodo, nuevo_mm -> marco_binario, 3); /* Convertirmos el nodo a binario y 
+				lo almacenamos en marco_binario*/
 		        nuevo_mm -> marco_decimal = nodo;
 				nuevo_mm -> marco_pagina = -1; // Significa que no hay ninguno en RAM
 		        
@@ -254,7 +255,7 @@ void paginar(int n_pagina){
 	
 	// Para la tabla de conversiones
 	TABLA *aux_tb = (TABLA *) malloc(sizeof(TABLA)); // Generamos el apuntador para manejar el marco de página
-		aux_tb = tb;
+	aux_tb = tb;
 		
 	for(int i=0; i<16; i++){ // Buscamos el índice de pagina en la tabla con base al numero de pagina
 		if(aux_tb -> n_pagina == n_pagina)
@@ -348,6 +349,7 @@ void paginar(int n_pagina){
 			fallo_pagina(n_pagina, aux_tb, aux_mv);
 		}
 	}
+	
 	else			// Si la pagina si esta en la RAM mandamos el mensaje al usuario
 		printf("La pagina esta en la RAM, intente con otra pagina\n\n");
 	
@@ -434,7 +436,7 @@ void fallo_pagina(int n_pagina, TABLA *aux_tb, MEM_VIR *aux_mv){
 			if(sal_mv -> pagina_decimal == sale_pag)
 				break;			
 			else
-				sal_mv = aux_mv -> sig;			
+				sal_mv = sal_mv -> sig;			
 		}
 		sal_mv -> marco_pagina = -1; 
 		

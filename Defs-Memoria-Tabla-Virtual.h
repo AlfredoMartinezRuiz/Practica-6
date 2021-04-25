@@ -47,16 +47,24 @@ MEMORIA *mm = NULL;
 
 
 //Definición de las funciones a usar (type es el tipo de estructura)
-void construccion(int nodo, int type); /* Construye el número de nodos para cada lista, en la memoria virtual y tabla son 16 y en la ram son 8. Esto depende 
-del tamaño total y el tamaño por nodo, en este caso el tamaño del nodo son 4KB, el nodo indica el índice*/
+
+void construccion(int nodo, int type); /* Construye el número de nodos para
+cada lista, en la memoria virtual y tabla son 16 y en la ram son 8. Esto 
+depende del tamaño total y el tamaño por nodo, en este caso el tamaño del
+nodo son 4KB, el nodo indica el índice*/
 void inicio(int type); // Reinicia los frentes al primer nodo
 void mostrar(int type); // Muestra la lista
 int num_random(); // Funcion para crear un numero aleatorio
-void invertir_arreglo(int *ptr_arreglo, int tam); // Funcion para invertir un arreglo (de bits)
-void dec_bin(int num, int *ptr_arreglo, int tam); // Funcion paara convertir numero decimal a binario
-void paginar(int n_pagina); // Funcion para hacer la paginacion inicial usando numeros aleatorios
-int solicitar_espacio(); // Funcion para buscar algún espacio libre en la memoria, devuelve el índice en decimal
-int num_random_extendido(); // Funcion para crear un numero aleatorio entre 0 y 15
-void fallo_pagina(int n_pagina, TABLA *aux_tb, MEM_VIR *aux_mv); // En caso de que la memoria RAM este llena, ejecutaremos el algoritmo FIFO para reemplazar alguna pagina
+void dec_bin(int num, int *ptr_arreglo, int tam); /* Funcion paara convertir
+ numero decimal a binario*/
+void paginar(int n_pagina); /* Funcion para hacer la paginacion inicial
+ usando numeros aleatorios*/
+int solicitar_espacio(); /* Funcion para buscar algún espacio libre en 
+la memoria, devuelve el índice en decimal*/
+int num_random_extendido(); /* Funcion para crear un numero aleatorio entre
+ 0 y 15 */
+void fallo_pagina(int n_pagina, TABLA *aux_tb, MEM_VIR *aux_mv); /* En caso
+de que la memoria RAM este llena, ejecutaremos el algoritmo FIFO para 
+reemplazar alguna pagina */
 
 # endif
